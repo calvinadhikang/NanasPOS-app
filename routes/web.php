@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [LoginController::class, "loginView"]);
+Route::get('/dashboard', [LoginController::class, "dashboardView"]);
+
+Route::prefix('/menu')->group(function() {
+    Route::get('/', [MenuController::class, "menuView"]);
 });
