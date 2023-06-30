@@ -1,8 +1,11 @@
 @extends('template/header')
 
 @section('content')
-<div class="prose">
-    <h1 class="text-white">Tambah Barang</h1>
+<div class="text-xl breadcrumbs">
+    <ul>
+        <li><a href="{{ url('menu') }}">Menu</a></li>
+        <li class="font-bold"><h1>Tambah Menu</h1></li>
+    </ul>
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
@@ -10,24 +13,28 @@
         <div class="flex flex-wrap my-5">
             <div class="form-control w-full">
                 <label class="label">
-                    <span class="label-text text-lg font-bold">Part Number</span>
+                    <span class="label-text text-lg font-bold">Nama Menu</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="B001..." class="input input-bordered w-full" name="part" required/>
+                <input type="text" name="nama" placeholder="Nama..." class="input input-bordered w-full" name="part" required/>
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
-                    <span class="label-text text-lg font-bold">Nama</span>
+                    <span class="label-text text-lg font-bold">Kategori</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="Ban..." class="input input-bordered w-full" name="nama" required/>
+                <select name="kategori" class="select" required>
+                    <option value="" selected disabled>Pilih Kategori...</option>
+                    <option value="0">Makanan</option>
+                    <option value="1">Minuman</option>
+                </select>
             </div>
             <div class="form-control w-full md:w-1/2">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Harga Jual (Rp)</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="number" placeholder="1000" class="input input-bordered w-full" name="harga" required/>
+                <input type="number" name="harga" placeholder="1000" class="input input-bordered w-full" name="harga" required/>
             </div>
         </div>
         <button class="btn btn-primary">Tambah</button>

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('menu', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('divisi');
+            $table->bigInteger('divisi');
             $table->string('nama');
             $table->bigInteger('harga');
             $table->integer('kategori');

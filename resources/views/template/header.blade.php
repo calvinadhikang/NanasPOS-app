@@ -6,8 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     @vite('resources/css/app.css')
+    <script src="https://kit.fontawesome.com/7ecee868f3.js" crossorigin="anonymous"></script>
 </head>
 <body>
+@include('sweetalert::alert')
 <div class="navbar bg-base-100">
     <div class="navbar-start">
         <div class="dropdown">
