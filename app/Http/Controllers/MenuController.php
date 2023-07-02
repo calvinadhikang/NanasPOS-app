@@ -12,7 +12,8 @@ class MenuController extends Controller
     //
     public function menuView()
     {
-        $menu = Menu::all();
+        $user = Session::get('user');
+        $menu = Menu::where('divisi', '=', $user->divisi)->get();
         return view('master.menu.view', [
             'data' => $menu
         ]);
@@ -57,5 +58,19 @@ class MenuController extends Controller
 
         toast("Berhasil Edit Menu", 'success');
         return redirect('menu');
+    }
+
+    public function getMenu(){
+        $menu = Menu::all();
+        foreach ($menu as $key => $value) {
+            $value->qty = 0;
+            $value->subtotal = 0;
+        }
+
+        return response()->json([
+            'error' => false,
+            'message' => "Berhasil fetch menu",
+            'data' => $menu
+        ], 200);
     }
 }

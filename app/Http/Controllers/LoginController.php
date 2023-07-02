@@ -28,6 +28,7 @@ class LoginController extends Controller
             $nama = $user[0]->nama;
             $request->session()->put('user', $user[0]);
             toast("Selamat Datang, $nama",'success');
+            return redirect('/dashboard');
         }
         return redirect()->back();
     }
@@ -38,5 +39,10 @@ class LoginController extends Controller
         return view('dashboard', [
             'user' => $user
         ]);
+    }
+
+    public function logoutAction(){
+        Session::flush();
+        return redirect('/');
     }
 }

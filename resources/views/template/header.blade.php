@@ -17,9 +17,11 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
         </label>
         <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a>Homepage</a></li>
-            <li><a>Portfolio</a></li>
-            <li><a>About</a></li>
+            <li><a href="{{ url('user') }}">User</a></li>
+            <li><a href="{{ url('menu') }}">Menu</a></li>
+            <li><a href="{{ url('transaksi') }}">Transaksi</a></li>
+            <li><a>Laporan</a></li>
+            <li><a class="text-rose-500 font-bold" href="{{ url('logout') }}">Logout</a></li>
         </ul>
         </div>
     </div>
@@ -39,7 +41,7 @@
     </div>
 </div>
 {{-- content --}}
-<div class="p-10">
+<div class="p-10 xl:w-1/2 xl:m-auto">
     @yield('content')
 </div>
 </body>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -19,6 +20,7 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 Route::get('/', [LoginController::class, "loginView"]);
 Route::post('/', [LoginController::class, "loginAction"]);
+Route::get('/logout', [LoginController::class, "logoutAction"]);
 Route::get('/dashboard', [LoginController::class, "dashboardView"]);
 
 Route::prefix('/menu')->group(function() {
@@ -28,6 +30,11 @@ Route::prefix('/menu')->group(function() {
 
     Route::post('/add', [MenuController::class, "menuAddAction"]);
     Route::post('/detail/{id}', [MenuController::class, "menuDetailAction"]);
+});
+
+Route::prefix('/transaksi')->group(function() {
+    Route::get('/', [TransactionController::class, "transactionView"]);
+    Route::get('/detail/{id}', [TransactionController::class, "transactionDetailView"]);
 });
 
 Route::prefix('/user')->group(function() {
