@@ -60,8 +60,8 @@ class MenuController extends Controller
         return redirect('menu');
     }
 
-    public function getMenu(){
-        $menu = Menu::all();
+    public function getMenu($divisi){
+        $menu = Menu::where('divisi', '=', $divisi)->get();
         foreach ($menu as $key => $value) {
             $value->qty = 0;
             $value->subtotal = 0;

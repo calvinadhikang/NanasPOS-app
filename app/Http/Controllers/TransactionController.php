@@ -25,6 +25,26 @@ class TransactionController extends Controller
         ]);
     }
 
+    public function getTransaction($divisi){
+        $htrans = Htrans::where('divisi', '=', $divisi)->get();
+        return response()->json([
+            'error' => false,
+            'message' => "Berhasil fetch Transaksi",
+            'data' => $htrans
+        ], 200);
+    }
+
+    public function getTransactionDetail($id){
+        $htrans = Htrans::find($id);
+        $htrans->dtrans;
+
+        return response()->json([
+            'error' => false,
+            'message' => "Berhasil fetch Detail Transaksi",
+            'data' => $htrans
+        ], 200);
+    }
+
     public function createTransaction(Request $request){
         $grandTotal = $request->input('grandTotal');
         $user_id = $request->input('user_id');
@@ -65,7 +85,5 @@ class TransactionController extends Controller
                 'data' => null
             ], 500);
         }
-
-
     }
 }

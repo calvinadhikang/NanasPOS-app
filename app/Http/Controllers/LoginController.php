@@ -45,4 +45,26 @@ class LoginController extends Controller
         Session::flush();
         return redirect('/');
     }
+
+    public function loginApi(Request $request){
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        $user = User::where('username', '=', $username)
+            ->where('password', '=', $password)
+            ->get();
+        if ($user->isEmpty()) {
+            return response()->json([
+                'error' => true,
+                'message' => 'User tidak ditemukan',
+                'data' => null
+            ], 200);
+        }else{
+            return response()->json([
+                'error' => false,
+                'message' => 'Berhasil Login',
+                'data' => $user[0]
+            ], 200);
+        }
+    }
 }

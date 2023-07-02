@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
-Route::get('menu', [MenuController::class, "getMenu"]);
-Route::post('transaction', [TransactionController::class, "createTransaction"]);
+Route::post('login', [LoginController::class, 'loginApi']);
+Route::get('menu/{divisi}', [MenuController::class, "getMenu"]);
+Route::get('transaksi/{divisi}', [TransactionController::class, "getTransaction"]);
+Route::get('transaksi/detail/{id}', [TransactionController::class, "getTransactionDetail"]);
+Route::post('transaksi', [TransactionController::class, "createTransaction"]);
