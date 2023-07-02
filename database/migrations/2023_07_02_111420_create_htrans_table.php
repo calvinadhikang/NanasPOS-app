@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->string('divisi');
+            $table->string('customer');
             $table->bigInteger('grandtotal');
             $table->timestamps();
         });

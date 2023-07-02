@@ -5,10 +5,15 @@
     <h1 class="text-4xl font-bold mb-4">Detail Transaksi</h1>
 </div>
 <div class="rounded bg-accent p-4 my-5">
-    <div class="flex flex-wrap">
-        <div class="w-full text-2xl font-bold">Nomor Nota : {{ $trans->id }}</div>
-        <div class="w-full text-secondary">{{ $trans->user->nama }}</div>
-        <div class="text-xl float-right">Grand Total: Rp {{ number_format($trans->grandtotal) }}</div>
+    <div class="flex flex-wrap justify-between">
+        <div class="basis-3/5 bg-secondary text-white p-4 rounded-md shadow-lg">
+            <div class="text-2xl font-medium">Nomor Nota : {{ $trans->id }}</div>
+            <div class="text-xl font-medium">Nama Customer : {{ $trans->customer }}</div>
+        </div>
+        <div class="basis-2/6 bg-secondary text-white p-4 rounded-md shadow-lg">
+            <div class="text-xl">Grand Total: Rp {{ number_format($trans->grandtotal) }}</div>
+            <div class="">{{ $trans->user->nama }}</div>
+        </div>
     </div>
     <br>
     <h1 class="text-3xl">List Pesanan</h1>

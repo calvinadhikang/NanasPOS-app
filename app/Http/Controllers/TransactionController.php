@@ -47,6 +47,7 @@ class TransactionController extends Controller
 
     public function createTransaction(Request $request){
         $grandTotal = $request->input('grandTotal');
+        $customer = $request->input('customer');
         $user_id = $request->input('user_id');
         $divisi = $request->input('divisi');
         $items = $request->input('items');
@@ -54,6 +55,7 @@ class TransactionController extends Controller
         try {
             $htrans = new Htrans();
             $htrans->user_id = $user_id;
+            $htrans->customer = $customer;
             $htrans->divisi = $divisi;
             $htrans->grandtotal = $grandTotal;
             $htrans->save();
