@@ -24,7 +24,7 @@ class MenuSeeder extends Seeder
         $menu = new Menu();
         $menu->divisi = 1;
         $menu->nama = "Nasi Be Genyol Biasa";
-        $menu->harga = 28000;
+        $menu->harga = 30000;
         $menu->kategori = 0;
         $menu->save();
 
