@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('divisi');
             $table->string('customer');
             $table->bigInteger('grandtotal');
+            $table->bigInteger('status');
+            $table->bigInteger('diskon');
             $table->timestamps();
         });
     }

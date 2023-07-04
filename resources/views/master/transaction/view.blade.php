@@ -26,7 +26,7 @@
                 @foreach ($data as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->user->nama }}</td>
+                        <td>{{ $item->customer }}</td>
                         <td>Rp {{ number_format($item->grandtotal) }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>

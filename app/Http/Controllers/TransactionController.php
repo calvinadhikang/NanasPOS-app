@@ -50,6 +50,7 @@ class TransactionController extends Controller
         $customer = $request->input('customer');
         $user_id = $request->input('user_id');
         $divisi = $request->input('divisi');
+        $diskon = $request->input('diskon');
         $items = $request->input('items');
 
         try {
@@ -58,6 +59,8 @@ class TransactionController extends Controller
             $htrans->customer = $customer;
             $htrans->divisi = $divisi;
             $htrans->grandtotal = $grandTotal;
+            $htrans->diskon = $diskon;
+            $htrans->status = 0;
             $htrans->save();
 
             $lastId = $htrans->id;
