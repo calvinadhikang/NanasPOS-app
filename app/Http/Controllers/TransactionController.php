@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dtrans;
 use App\Models\Htrans;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -26,7 +27,8 @@ class TransactionController extends Controller
     }
 
     public function getTransaction($divisi){
-        $htrans = Htrans::where('divisi', '=', $divisi)->get();
+        $currentDate = Carbon::today();
+        $htrans = Htrans::where('divisi', '=', $divisi)->whereDate('created_at', $currentDate)->orderBy('status', 'asc')->orderBy('id', 'desc')->get();
         return response()->json([
             'error' => false,
             'message' => "Berhasil fetch Transaksi",
@@ -43,6 +45,27 @@ class TransactionController extends Controller
             'message' => "Berhasil fetch Detail Transaksi",
             'data' => $htrans
         ], 200);
+    }
+
+    public function finishTransaction(Request $request, $id){
+        $htrans = Htrans::find($id);
+        $status = $htrans->status;
+        if ($status == 0) {
+            $htrans->status = 1;
+            $htrans->save();
+
+            return response()->json([
+                'error' => false,
+                'message' => "Berhasil Melunaskan Transaksi",
+                'data' => ""
+            ], 200);
+        }else{
+            return response()->json([
+                'error' => true,
+                'message' => "Transaksi Gagal",
+                'data' => ""
+            ], 200);
+        }
     }
 
     public function createTransaction(Request $request){
