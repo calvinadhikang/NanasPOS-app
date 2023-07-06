@@ -6,6 +6,7 @@ use App\Models\Dtrans;
 use App\Models\Htrans;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class TransactionController extends Controller
@@ -63,6 +64,25 @@ class TransactionController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => "Transaksi Gagal",
+                'data' => ""
+            ], 200);
+        }
+    }
+
+    public function deleteTransaction($id){
+        $htrans = Htrans::find($id);
+        $result = $htrans->delete();
+        if ($result) {
+            $dtrans = DB::table('dtrans')->where('htrans_id', $htrans->id)->delete();
+            return response()->json([
+                'error' => false,
+                'message' => "Berhasil Hapus Transaksi $id",
+                'data' => ""
+            ], 200);
+        }else{
+            return response()->json([
+                'error' => true,
+                'message' => "Gagal Hapus Transaksi $id",
                 'data' => ""
             ], 200);
         }

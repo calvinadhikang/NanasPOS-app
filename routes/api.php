@@ -25,4 +25,5 @@ Route::get('menu/{divisi}', [MenuController::class, "getMenu"]);
 Route::get('transaksi/{divisi}', [TransactionController::class, "getTransaction"]);
 Route::get('transaksi/detail/{id}', [TransactionController::class, "getTransactionDetail"]);
 Route::post('transaksi/finish/{id}', [TransactionController::class, "finishTransaction"]);
+Route::post('transaksi/delete/{id}', [TransactionController::class, "deleteTransaction"]);
 Route::post('transaksi', [TransactionController::class, "createTransaction"]);
