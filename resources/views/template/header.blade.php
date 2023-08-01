@@ -20,7 +20,7 @@
             <li><a href="{{ url('user') }}">User</a></li>
             <li><a href="{{ url('menu') }}">Menu</a></li>
             <li><a href="{{ url('transaksi') }}">Transaksi</a></li>
-            <li><a>Laporan</a></li>
+            <li><a href="{{ url('laporan') }}">Laporan</a></li>
             <li><a class="text-rose-500 font-bold" href="{{ url('logout') }}">Logout</a></li>
         </ul>
         </div>

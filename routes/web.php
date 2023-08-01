@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TransactionController;
@@ -44,4 +45,9 @@ Route::prefix('/user')->group(function() {
 
     Route::post('/add', [UserController::class, "userAddAction"]);
     Route::post('/detail/{id}', [UserController::class, "userDetailAction"]);
+});
+
+Route::prefix('/laporan')->group(function() {
+    Route::get('/', [LaporanController::class, 'viewLaporan']);
+    Route::post('/', [LaporanController::class, 'generateLaporan']);
 });
