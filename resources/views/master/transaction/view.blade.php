@@ -28,7 +28,7 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->customer }}</td>
                         <td>Rp {{ number_format($item->grandtotal) }}</td>
-                        <td>{{ $item->created_at }}</td>
+                        <td>{{ date_format($item->created_at, 'd-M-Y')  }}</td>
                         <td>
                             <a href="{{ url("transaksi/detail/$item->id") }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
