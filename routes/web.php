@@ -35,6 +35,7 @@ Route::prefix('/menu')->group(function() {
 
 Route::prefix('/transaksi')->group(function() {
     Route::get('/', [TransactionController::class, "transactionView"]);
+    Route::get('/add', [TransactionController::class, "transactionAddView"]);
     Route::get('/detail/{id}', [TransactionController::class, "transactionDetailView"]);
 });
 

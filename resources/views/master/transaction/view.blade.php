@@ -4,7 +4,7 @@
 <h1 class="text-4xl font-bold mb-4">Data Transaksi</h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full">
-        <a class="btn btn-primary" href="{{url('menu/add')}}">Tambah</a>
+        <a class="btn btn-primary" href="{{url('transaksi/add')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
         <table class="table">
@@ -40,6 +40,7 @@
             </tbody>
         </table>
     </div>
+    {{ $data->links('pagination::tailwind') }}
 </div>
 
 @endsection
