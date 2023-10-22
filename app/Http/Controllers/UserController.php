@@ -11,7 +11,7 @@ class UserController extends Controller
     //
     public function userView()
     {
-        $user = User::all();
+        $user = User::paginate(5);
         return view('master.user.view', [
             'data' => $user
         ]);
