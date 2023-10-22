@@ -13,7 +13,7 @@ class MenuController extends Controller
     public function menuView()
     {
         $user = Session::get('user');
-        $menu = Menu::where('divisi', '=', $user->divisi)->get();
+        $menu = Menu::where('divisi', '=', $user->divisi)->paginate(5);
         return view('master.menu.view', [
             'data' => $menu
         ]);
