@@ -1,8 +1,11 @@
 @extends('template/header')
 
 @section('content')
-<div class="prose">
-    <h1 class="text-4xl font-bold mb-4">Detail Transaksi</h1>
+<div class="text-xl breadcrumbs">
+    <ul>
+        <li><a href="{{ url('transaksi') }}">Transaksi</a></li>
+        <li class="font-bold"><h1>Detail Transaksi</h1></li>
+    </ul>
 </div>
 <div class="rounded bg-stone-200 p-10 my-5 shadow-md">
     <?php

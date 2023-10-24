@@ -1,8 +1,11 @@
 @extends('template/header')
 
 @section('content')
-<div class="prose">
-    <h1 class="text-white">Detail Barang</h1>
+<div class="text-xl breadcrumbs">
+    <ul>
+        <li><a href="{{ url('menu') }}">Menu</a></li>
+        <li class="font-bold"><h1>Detail Menu</h1></li>
+    </ul>
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
@@ -23,8 +26,8 @@
                 </label>
                 <select name="kategori" class="select" required>
                     <option value="" selected disabled>Pilih Kategori...</option>
-                    <option value="0">Makanan</option>
-                    <option value="1">Minuman</option>
+                    <option value="0" {{ $menu->kategori == '0' ? 'selected' : '' }}>Makanan</option>
+                    <option value="1" {{ $menu->kategori == '1' ? 'selected' : '' }}>Minuman</option>
                 </select>
             </div>
             <div class="form-control w-full md:w-1/2">

@@ -3,8 +3,8 @@
 @section('content')
 <div class="text-xl breadcrumbs">
     <ul>
-        <li><a href="{{ url('menu') }}">Menu</a></li>
-        <li class="font-bold"><h1>Tambah Menu</h1></li>
+        <li><a href="{{ url('transaksi') }}">Transaksi</a></li>
+        <li class="font-bold"><h1>Tambah Transaksi</h1></li>
     </ul>
 </div>
 <div class="rounded bg-accent p-4 my-5">

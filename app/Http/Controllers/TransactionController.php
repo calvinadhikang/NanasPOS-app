@@ -15,9 +15,16 @@ class TransactionController extends Controller
     public function transactionView(){
         $user = Session::get('user');
         $htrans = Htrans::where('divisi', '=', $user->divisi)->get();
+        $htrans = Htrans::paginate(5);
         return view('master.transaction.view', [
             'data' => $htrans
         ]);
+        
+    }
+
+    public function transactionAddView()
+    {
+        return view('master.transaction.add');
     }
 
     public function transactionDetailView($id){

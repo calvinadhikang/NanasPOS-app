@@ -47,8 +47,8 @@
                 </label>
                 <select name="divisi" class="select" required>
                     <option value="" selected disabled>Pilih Divisi...</option>
-                    <option value="0">Bali Lais</option>
-                    <option value="1">Babiku Genyol</option>
+                    <option value="0" {{ $user->divisi == '0' ? 'selected' : '' }}>Bali Lais</option>
+                    <option value="1" {{ $user->divisi == '1' ? 'selected' : '' }}>Babiku Genyol</option>
                 </select>
             </div>
             <div class="form-control w-full md:w-1/2">
@@ -58,8 +58,8 @@
                 </label>
                 <select name="role" class="select" required>
                     <option value="" selected disabled>Pilih Role...</option>
-                    <option value="1">Super Admin</option>
-                    <option value="0">Karyawan</option>
+                    <option value="0" {{ $user->role == '0' ? 'selected' : '' }}>Super Admin</option>
+                    <option value="1" {{ $user->role == '1' ? 'selected' : '' }}>Karyawan</option>
                 </select>
             </div>
         </div>
