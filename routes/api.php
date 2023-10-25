@@ -27,3 +27,4 @@ Route::get('transaksi/detail/{id}', [TransactionController::class, "getTransacti
 Route::post('transaksi/finish/{id}', [TransactionController::class, "finishTransaction"]);
 Route::post('transaksi/delete/{id}', [TransactionController::class, "deleteTransaction"]);
 Route::post('transaksi', [TransactionController::class, "createTransaction"]);
+Route::post('transaksi/laporan', [TransactionController::class, "getTransactionByDateRange"]);

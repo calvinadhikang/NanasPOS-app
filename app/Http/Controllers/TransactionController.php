@@ -19,7 +19,7 @@ class TransactionController extends Controller
         return view('master.transaction.view', [
             'data' => $htrans
         ]);
-        
+
     }
 
     public function transactionAddView()
@@ -140,5 +140,18 @@ class TransactionController extends Controller
                 'data' => null
             ], 500);
         }
+    }
+
+    public function getTransactionByDateRange(Request $request){
+        $data = $request->json()->all();
+        $dateStart = $request->input('date-start');
+        $dateEnd = $request->input('date-end');
+
+        return response([
+            'request' => $data,
+            'date-start' => $dateStart,
+            'date-end' => $dateEnd,
+            'data' => "hello world"
+        ], 200);
     }
 }
