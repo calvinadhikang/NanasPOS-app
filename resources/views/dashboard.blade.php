@@ -14,9 +14,11 @@
         </div>
     </div>
     <button class="btn btn-secondary mb-5" id="btnLaporan">Buat Laporan</button>
-    <div id="grafik-menu"></div>
+    <canvas id="grafik-menu" class="bg-white p-4 rounded w-full"></canvas>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="{{ asset('js/alert.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ asset('js/chart.js') }}"></script>
+
 @endsection

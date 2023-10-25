@@ -42,7 +42,7 @@
     </div>
 </div>
 {{-- content --}}
-<div class="p-10 xl:w-1/2 xl:m-auto">
+<div class="p-10 xl:max-w-7xl xl:m-auto">
     @yield('content')
 </div>
 </body>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dtrans;
 use App\Models\Htrans;
+use App\Models\Menu;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -144,14 +145,47 @@ class TransactionController extends Controller
 
     public function getTransactionByDateRange(Request $request){
         $data = $request->json()->all();
-        $dateStart = $request->input('date-start');
-        $dateEnd = $request->input('date-end');
+        $dateStart = $data['dateStart'];
+        $dateEnd = $data['dateEnd'];
+
+        $result = Htrans::whereBetween('created_at', [$dateStart, $dateEnd])->get();
+        $unqiue_orderedMenu = [];
+        $grandTotal = 0;
+        foreach ($result as $key => $value) {
+            $value->details = $value->dtrans;
+            foreach ($value->dtrans as $key => $detail) {
+                $unqiue_orderedMenu[] = $detail->nama;
+            }
+            $grandTotal += $value->grandtotal;
+        }
+        $unqiue_orderedMenu = array_unique($unqiue_orderedMenu);
+
+        $orderedMenu = [];
+        foreach ($unqiue_orderedMenu as $key => $value) {
+            $orderedMenu[] = $value;
+        }
+        $countOrderedMenu = array_fill(0, count($orderedMenu),0);
+
+        foreach ($result as $key => $header) {
+            foreach ($header->details as $key => $detail) {
+                $nama = $detail->nama;
+                $qty = $detail->qty;
+
+                for ($i = 0; $i < count($orderedMenu); $i++) {
+                    if ($orderedMenu[$i] == $nama) {
+                        $countOrderedMenu[$i] += $qty;
+                    }
+                }
+            }
+        }
 
         return response([
-            'request' => $data,
+            'data' => $result,
             'date-start' => $dateStart,
             'date-end' => $dateEnd,
-            'data' => "hello world"
+            'grandTotal' => $grandTotal,
+            'menu' => $orderedMenu,
+            'count_menu' => $countOrderedMenu,
         ], 200);
     }
 }
