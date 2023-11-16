@@ -96,6 +96,31 @@ class TransactionController extends Controller
         }
     }
 
+    public function updateTransaction($id, Request $request){
+        $htrans_id = $id;
+        $items = $request->input('items');
+
+        DB::beginTransaction();
+        try{
+
+
+            DB::commit();
+
+            return response()->json([
+                'error' => false,
+                'message' => "Update Transaksi Berhasil",
+                'data' => null
+            ], 201);
+        }catch(\Exception $e){
+            DB::rollBack();
+
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => null
+            ], 500);
+        }
+    }
     public function createTransaction(Request $request){
         $total = $request->input('total');
         $tax = $request->input('tax') ?? null;
@@ -117,9 +142,10 @@ class TransactionController extends Controller
                     'total' => $total,
                     'tax' => $tax,
                     'tax_value' => $tax_value,
-                    'grandtotal' => $total + $tax_value,
+                    'grandtotal' => $total + $tax_value - $diskon,
                     'diskon' => $diskon,
-                    'status' => 0
+                    'status' => 0,
+                    'created_at' => now(),
                 ]);
             }else{
                 $id = DB::table('htrans')->insertGetId([
@@ -127,7 +153,7 @@ class TransactionController extends Controller
                     'customer' => $customer,
                     'divisi' => $divisi,
                     'total' => $total,
-                    'grandtotal' => $total,
+                    'grandtotal' => $total - $diskon,
                     'diskon' => $diskon,
                     'status' => 0
                 ]);
