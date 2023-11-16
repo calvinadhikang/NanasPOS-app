@@ -97,37 +97,54 @@ class TransactionController extends Controller
     }
 
     public function createTransaction(Request $request){
-        $grandTotal = $request->input('grandTotal');
+        $total = $request->input('total');
+        $tax = $request->input('tax') ?? null;
         $customer = $request->input('customer');
         $user_id = $request->input('user_id');
         $divisi = $request->input('divisi');
         $diskon = $request->input('diskon');
         $items = $request->input('items');
 
+        DB::beginTransaction();
         try {
-            $htrans = new Htrans();
-            $htrans->user_id = $user_id;
-            $htrans->customer = $customer;
-            $htrans->divisi = $divisi;
-            $htrans->grandtotal = $grandTotal;
-            $htrans->diskon = $diskon;
-            $htrans->status = 0;
-            $htrans->save();
+            if ($tax != null) {
+                $tax_value = $total / 100 * $tax;
 
-            $lastId = $htrans->id;
-            $test = "";
+                $id = DB::table('htrans')->insertGetId([
+                    'user_id' => $user_id,
+                    'customer' => $customer,
+                    'divisi' => $divisi,
+                    'total' => $total,
+                    'tax' => $tax,
+                    'tax_value' => $tax_value,
+                    'grandtotal' => $total + $tax_value,
+                    'diskon' => $diskon,
+                    'status' => 0
+                ]);
+            }else{
+                $id = DB::table('htrans')->insertGetId([
+                    'user_id' => $user_id,
+                    'customer' => $customer,
+                    'divisi' => $divisi,
+                    'total' => $total,
+                    'grandtotal' => $total,
+                    'diskon' => $diskon,
+                    'status' => 0
+                ]);
+            }
 
             //insert details
             foreach ($items as $key => $value) {
-                $test = $value;
-                $dtrans = new Dtrans();
-                $dtrans->htrans_id = $lastId;
-                $dtrans->nama = $value['nama'];
-                $dtrans->harga = $value['harga'];
-                $dtrans->qty = $value['qty'];
-                $dtrans->subtotal = $value['subtotal'];
-                $dtrans->save();
+                DB::table('dtrans')->insert([
+                    'htrans_id' => $id,
+                    'nama' => $value['nama'],
+                    'harga' => $value['harga'],
+                    'qty' => $value['qty'],
+                    'subtotal' => $value['subtotal'],
+                ]);
             }
+
+            DB::commit();
 
             return response()->json([
                 'error' => false,
@@ -135,6 +152,8 @@ class TransactionController extends Controller
                 'data' => null
             ], 201);
         } catch (\Exception $e) {
+            DB::rollBack();
+
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
