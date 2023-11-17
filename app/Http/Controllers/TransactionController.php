@@ -124,7 +124,7 @@ class TransactionController extends Controller
     }
     public function createTransaction(Request $request){
         $total = $request->input('total');
-        $tax = $request->input('tax') ?? null;
+        $tax = $request->input('tax');
         $customer = $request->input('customer');
         $user_id = $request->input('user_id');
         $divisi = $request->input('divisi');
@@ -133,36 +133,26 @@ class TransactionController extends Controller
 
         if ($divisi == 1) {
             $tax = 0;
+        }else if($divisi == 0) {
+            $tax = 10;
         }
 
         DB::beginTransaction();
         try {
-            if ($tax != null) {
-                $tax_value = $total / 100 * $tax;
+            $tax_value = $total / 100 * $tax;
 
-                $id = DB::table('htrans')->insertGetId([
-                    'user_id' => $user_id,
-                    'customer' => $customer,
-                    'divisi' => $divisi,
-                    'total' => $total,
-                    'tax' => $tax,
-                    'tax_value' => $tax_value,
-                    'grandtotal' => $total + $tax_value - $diskon,
-                    'diskon' => $diskon,
-                    'status' => 0,
-                    'created_at' => now(),
-                ]);
-            }else{
-                $id = DB::table('htrans')->insertGetId([
-                    'user_id' => $user_id,
-                    'customer' => $customer,
-                    'divisi' => $divisi,
-                    'total' => $total,
-                    'grandtotal' => $total - $diskon,
-                    'diskon' => $diskon,
-                    'status' => 0
-                ]);
-            }
+            $id = DB::table('htrans')->insertGetId([
+                'user_id' => $user_id,
+                'customer' => $customer,
+                'divisi' => $divisi,
+                'total' => $total,
+                'tax' => $tax,
+                'tax_value' => $tax_value,
+                'grandtotal' => $total + $tax_value - $diskon,
+                'diskon' => $diskon,
+                'status' => 0,
+                'created_at' => now(),
+            ]);
 
             //insert details
             foreach ($items as $key => $value) {
@@ -179,7 +169,7 @@ class TransactionController extends Controller
 
             return response()->json([
                 'error' => false,
-                'message' => "Transaksi Berhasil",
+                'message' => "Transaksi Berhasil $tax",
                 'data' => null
             ], 201);
         } catch (\Exception $e) {
