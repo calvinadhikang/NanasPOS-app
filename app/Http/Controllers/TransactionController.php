@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dtrans;
 use App\Models\Htrans;
 use App\Models\Menu;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -129,6 +130,10 @@ class TransactionController extends Controller
         $divisi = $request->input('divisi');
         $diskon = $request->input('diskon');
         $items = $request->input('items');
+
+        if ($divisi == 1) {
+            $tax = 0;
+        }
 
         DB::beginTransaction();
         try {
